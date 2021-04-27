@@ -1,0 +1,12 @@
+html, body, #root, #root>div {
+    background-color: black;
+    color: white;
+    height: 99%;
+    margin: 0;
+}
+
+div.mainScreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
