@@ -1,26 +1,7 @@
 import React from 'react';
+import './About.css'
 
-function createText(text: string, id: string, duration: number) {
-    document.getElementById(id)!.innerHTML = '';
-    for (let i = 0; i < text.length; i++) {
-        setTimeout(() => {
-            let newText: string = text.substr(0, (i + 1));
-            document.getElementById(id)!.innerHTML = newText;
-        }, duration * i);
-    }
-}
-
-function clearText(id: string, duration: number) {
-    let text= document.getElementById(id)!.innerHTML;
-    for (let i = text.length; i > 0; i--) {
-        setTimeout(() => {
-            let newText: string = text.substr(0, text.length - i);
-            document.getElementById(id)!.innerHTML = newText;
-        }, duration * i);
-    }
-}
-
-function initSlider(id: string, texts: string[], duration: number, delay: number) {
+const initChangeText = (id: string, texts: string[], duration: number[], delay: number[]) => {
     let durs: number[] = [];
     for (let i = 0; i < texts.length - 1; i++) {
         let beforeDur;
@@ -28,40 +9,38 @@ function initSlider(id: string, texts: string[], duration: number, delay: number
             beforeDur = 0;
         else
             beforeDur = durs[i - 1];
-        durs.push((texts[i].length * duration * 2) + (2 * delay) + beforeDur);
+        durs.push(duration[i] + delay[i] + beforeDur);
     }
 
-    let allTime: number = 0;
-    for (let i = 0; i < texts.length; i++) {
-        allTime += (texts[i].length * duration * 2) + (2 * delay);
-    }
-
-    let mainSlider = function() {
+    let mainChangeText = () => {
         for (let i = 0; i < texts.length; i++) {
-            setTimeout(()=>{
-                createText(texts[i],id,duration);
-                setTimeout(()=>{
-                    clearText(id,duration);
-                },texts[i].length*duration + delay);
-            },i === 0 ? 0 : durs[i-1]);
+            setTimeout(() => {
+                document.getElementById(id)!.innerHTML = texts[i];
+            }, i === 0 ? 0 : durs[i - 1])
+
         }
     }
-    mainSlider();
-    setInterval(()=>{
-        mainSlider();
-    },allTime);  
+    mainChangeText();
 }
 
+
 export const About = () => {
-    window.addEventListener('load', function(){
-        initSlider(
-            'slider',
-            ['Hello World', 'My name is Mi Hwangbo'],
-            50,
-            1000
-        )
-    })
+   window.addEventListener('load', function() {
+       initChangeText(
+           "fade",
+            [
+               "<div class='fade'>Welcome to my portfolio</div>", 
+               "<div class='fade'>My name is <div class='fade name'><div class='grow'>Mi Hwangbo</div></div></div>",
+            ],
+           [4500, 13500],
+           [0, 0]
+       )
+   }) 
+    
     return (
-        <div id='slider'></div>
+        <>
+            <div className="fade" id="fade">
+            </div>
+        </>
     );
 };

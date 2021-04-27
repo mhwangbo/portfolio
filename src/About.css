@@ -1,0 +1,33 @@
+@keyframes fade_in {
+    0% { color: black; }
+    50% { color: white; }
+    100% { color: black; }
+}
+
+div.fade {
+    animation-name: fade_in;
+    animation-duration: 4500ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade_name {
+    0% { color: black; }
+    100% { color: white; }
+}
+
+div.fade.name {
+    animation-name: fade_name;
+    animation-duration: 4500ms;
+}
+
+@keyframes grow_name {
+    0% { font-size: 30px; }
+    100% { font-size: 60px; margin-top: -50vh; }
+}
+
+div.grow {
+    animation-name: grow_name;    
+    animation-duration: 5000ms;
+    animation-delay: 4500ms;
+    animation-fill-mode: forwards;
+}
